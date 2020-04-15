@@ -31,3 +31,8 @@ jobs:
       with:
         command: test
         args: --verbose
+    - name: Check cargo fmt
+      uses: actions-rs/cargo@v1
+      with:
+        command: fmt
+        args: --color=always --check
