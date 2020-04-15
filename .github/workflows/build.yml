@@ -35,4 +35,4 @@ jobs:
       uses: actions-rs/cargo@v1
       with:
         command: fmt
-        args: --color=always --check
+        args: -- --color=always --check
