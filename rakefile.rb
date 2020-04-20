@@ -49,9 +49,9 @@ def create_and_tag_new_version(versioner, jump)
   create_changelog(current_version, next_version)
   versioner.increment_version(jump)
   sh 'git add .'
-  commit_cmd "git commit -m \"[](chore): version bump from #{current_version} => #{next_version}\""
-  tag_cmd "git tag #{next_version}"
-  puts "to commit, you can use: \"#{commit_cmd}\""
+  commit_cmd = "git add .; git commit -m \"[](chore): version bump from #{current_version} => #{next_version}\""
+  tag_cmd = "git tag #{next_version}"
+  puts "to commit, you can use: #{commit_cmd}"
   puts "to tag, use: \"#{tag_cmd}\""
 end
 
