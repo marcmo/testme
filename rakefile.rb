@@ -14,7 +14,7 @@ end
 def pack_release
   require 'zip'
   exe_file = if OS.windows?
-               "#{EXE_NAME}.zip"
+               "#{EXE_NAME}.exe"
              else
                EXE_NAME
              end
