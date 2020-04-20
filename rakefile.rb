@@ -19,6 +19,7 @@ task :create_release do
   unless current_tag.start_with?(current_version)
     raise "current tag #{current_tag} does not match current version: #{current_version}"
   end
+
   do_create_release(versioner)
 end
 
@@ -49,12 +50,11 @@ def create_and_tag_new_version(versioner, jump)
   create_changelog(current_version, next_version)
   versioner.increment_version(jump)
   sh 'git add .'
-  commit_cmd = "git add .; git commit -m \"[](chore): version bump from #{current_version} => #{next_version}\""
+  commit_cmd = "git commit -m \"Bump version from #{current_version} => #{next_version}\""
   tag_cmd = "git tag #{next_version}"
-  puts "to commit, you can use: #{commit_cmd}"
-  puts "to tag, use: \"#{tag_cmd}\""
+  puts "to commit, you can use ====> git add .; #{commit_cmd}"
+  puts "to tag, use ===============> \"#{tag_cmd}\""
 end
-
 
 def pack_release
   require 'zip'
@@ -65,7 +65,13 @@ def pack_release
              end
   exe_path = "target/release/#{exe_file}"
 
-  zipfile_name = "#{EXE_NAME}.zip"
+  zipfile_name = if OS.windows?
+                   "#{EXE_NAME}_win.zip"
+                 elsif OS.mac?
+                   "#{EXE_NAME}_mac.zip"
+                 else
+                   "#{EXE_NAME}_linux.zip"
+                 end
 
   Zip::File.open(zipfile_name, Zip::File::CREATE) do |zipfile|
     zipfile.add(exe_file, exe_path)
