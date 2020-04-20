@@ -44,9 +44,6 @@ jobs:
       - name: Build
         run: rake build
 
-      - uses: montudor/action-zip@v0.1.0
-        with:
-          args: zip -qq -r ./enforcer.zip ./target/release/hello
       - name: Release
         uses: meatlink/action-gh-release@fix-econnreset
         if: startsWith(github.ref, 'refs/tags/')
