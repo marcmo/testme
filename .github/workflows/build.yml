@@ -20,6 +20,8 @@ jobs:
         uses: actions/setup-ruby@v1
         with:
           ruby-version: "2.x"
+      - name: install rubyzip
+        run: gem install rubyzip
       - name: Install latest nightly
         uses: actions-rs/toolchain@v1
         with:
